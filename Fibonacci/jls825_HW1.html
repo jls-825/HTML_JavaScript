@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Fibonacci Numbers</title>
+</head>
+<body>
+<style>
+html {min-height: 100%;}
+body {background: linear-gradient(#191970, #6495ED); color: #FFFFFF}
+h1 {text-align:center;}
+h2 {text-align:center;}
+form {text-align:center;}
+p {text-align:center;}
+table {margin: 1em auto; bordercolor: #FFFFFF;}
+div {text-align:center;}
+</style>
+<script>
+//store the current sequence
+var cache = [];
+
+//calculates the Fibonacci sequence
+function fibonacci(){
+	var user_val = document.getElementById("in_textbox").value;
+	var user_int = parseInt(user_val);
+	
+	//check for positive int
+	if(user_int < 0){
+		out.innerHTML = "<b>Cannot calculate sequence of a negative integer.</b>";
+	}
+	
+	else if(isNaN(user_int)){
+		out.innerHTML = "<b>Cannot calculate sequence of a string.</b>";
+	}
+	
+	else{
+		//specific cases 0 and 1
+		if(user_int == 0 || user_int == 1){
+			if(user_int == 0){
+				cache.push(0);
+			}
+			else{
+				cache.push(0);
+				cache.push(1);
+			}
+			//create output
+			out.innerHTML = "<p>Fibonacci Value: " + user_int.toString() + "</p>\n" + make_table();
+		}
+		//rest of the values
+		else{
+			//initialize 0 and 1
+			var prev = 0;
+			var next = 1;
+			var result = 0;
+			cache.push(0);
+			cache.push(1);
+			
+			//for every number from one to the input, add one and push it to the cache
+			for(i=1; i<user_int; i++){
+				result = prev+next;
+				cache.push(result);
+				prev = next;
+				next = result;
+			}
+			//output
+			out.innerHTML = "<p>Fibonacci Value: " + result.toString() + "</p>\n" + make_table();
+		}
+		//clears cache
+		cache = [];
+	}
+}
+
+//creates table for output
+function make_table(){
+	//initialize a table
+	var new_table = "<table border='1' bordercolor='#FFFFFF'><tr><th>n</th><th>fib(n)</th></tr>";
+	
+	//for each object in the cache, create a new row and data cell
+	for(i=0; i<cache.length; i++){
+		new_table += "<tr><td>" + i.toString() + "</td><td>" + cache[i].toString() + "</td></tr>";
+	}
+	//close table
+	new_table += "</table>"
+	//print table
+	return new_table;
+}
+</script>
+<h1>Fibonacci Numbers</h1>
+<p>
+The Fibonacci numbers are the numbers in the following integer sequence, called the Fibonacci sequence, where every number after the first two is the sum of the two preceding numbers:
+</p>
+<p>
+1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, ...
+</p>
+<center><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/FibonacciSpiral.svg/220px-FibonacciSpiral.svg.png" alt="Fibonacci Spiral" style="width: 230px; height: 145px;"></center>
+<h2>History</h2>
+<p>
+The Fibonacci sequence is named after Italian mathematician Leonardo of Pisa, also known as Fibonacci. The book he wrote, Liber Abaci introduced this sequence to European mathematics. The Fibonacci sequence appears earlier in Indian mathematics, in connection with Sanskrit prosody. There was an interest in enumerating all patterns of long syllables (2 units long), and short syllables (1 unit long). Counting the different number of patterns that are m short syllables long is the Fibonacci number sequence.
+</p>
+<h2>Try It Yourself</h2>
+<form>
+	Fibonacci Number:
+	<input type="text" id="in_textbox"><br>
+	<input type="button" onclick="fibonacci()" value="Calculate">
+</form>
+<div id="out">
+</div>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<style>
+h1 {text-align:center;}
+h2 {text-align:center;}
+form {text-align:center;}
+table {margin: 1em auto; bordercolor: #ffff99;}
+body {background-image: url("https://www.cbc.ca/doczone/content/images/episodes/waethergonewiild_1280.jpg"); background-repeat: no-repeat; background-size: cover; color: #ffff99;}
+</style>
+<head>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+</script>
+</head>
+<script type="text/javascript">
+//gets lon and lat position and returns the weather
+function get_weather(){
+	//get API key
+	var user_id = document.getElementById("user_id").value;
+	var key = document.getElementById("key").value;
+	
+	//get lat and lon and put all var into the url
+	if(navigator.geolocation){
+		navigator.geolocation.getCurrentPosition(function(position){
+			var lat = position.coords.latitude;
+			var lon = position.coords.longitude;
+			var URL = "https://api.aerisapi.com/forecasts/" + lat + "," + lon + "?client_id=" + user_id + "&client_secret=" + key;
+	
+			//set up json object
+			$.ajax({
+				type: "GET",
+				url: URL,
+				contentType: "application/json; charset=utf-8",
+				data: "{}",
+				dataType: "jsonp",
+				success: function(msg){
+					//format table
+					var data = msg
+					var mk_table = "<table border='1' bordercolor='#ffff99'><tr><th>Date</th><th>Current Temp</th><th>Max Temp</th><th>Min Temp</th><th>Chance of Rain</th></tr>";
+					$.each(data.response[0].periods, function(i){
+						mk_table += "<tr><td>" + data.response[0].periods[i].validTime + "</td><td>" + data.response[0].periods[i].avgTempF + "</td><td>" + data.response[0].periods[i].maxTempF + "</td><td>" + data.response[0].periods[i].minTempF + "</td><td>" + data.response[0].periods[i].precipIN + "</td></tr>";
+					})
+					//close table
+					mk_table += "</table>";
+					$("#weather").html(mk_table);
+				},
+				error: function(xhr, ajaxOptions, thrownError){
+				$("#weather").html("Error");
+				}
+			});
+		});
+	}
+}
+</script>
+<head>
+<title>Weather API</title>
+</head>
+<body>
+<h1>Weather API</h1>
+<form>
+	Your API Id and Key:
+	<br>
+	<input type="text" id="user_id">
+	<br>
+	<input type="text" id="key">
+	<br>
+	<input type="button" onclick="get_weather()" value="Submit">
+	</br>
+</form>
+<h2>----Your Hourly Forecast----</h2>
+<div id="weather"></div>
+</body>
+</html>

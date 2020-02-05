@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Student Database</title>
+</head>
+<body>
+<style>
+html {min-height: 100%;}
+body {background: linear-gradient(#000066, #8080ff); color: #ffff00}
+h1 {text-align:center;}
+h2 {text-align:center;}
+form {text-align:center;}
+p {text-align:center;}
+div {text-align:center;}
+</style>
+<script type="text/JavaScript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/JavaScript" src="client.js"></script>
+<h1>Drexel Student Database</h1>
+<p>To view a total list of students, courses, or grades, select an option from the first dropdown menu. To view the full transcript of a student's grades, select the student from the second dropdown menu.</p>
+<form>
+	<select id="table">
+		<option value="student">Student</option>
+		<option value="course">Course</option>
+		<option value="grades">Grades</option>
+	</select>
+<input type="button" onclick="init_table()" value="View">
+<br/>
+</form>
+<form>
+	<select id="transcript">
+		<option value="1">John Doe</option>
+		<option value="2">Jane Doe</option>
+	</select>
+<input type="button" onclick="init_transcript()" value="View">
+<br/>
+</form>
+<div id="out"></div>
+</body>
+</html>

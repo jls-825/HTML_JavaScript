@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Summation, Factorial Server</title>
+</head>
+<body>
+<style>
+html {min-height: 100%;}
+body {background: linear-gradient(#660066, #ff66ff); color: #FFFFFF}
+h1 {text-align:center;}
+h2 {text-align:center;}
+form {text-align:center;}
+p {text-align:center;}
+div {text-align:center;}
+</style>
+<script type="text/JavaScript" src="client.js"></script>
+<script type="text/JavaScript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<h1>Summation, Factorial Web Service</h1>
+<p>Please enter a seed, then select the type of calculation from the drop-down:</p>
+<form>
+	<input type="text" id="seed" placeholder="Seed">
+	<select id="calc">
+		<option value="fact">Factorial</option>
+		<option value="sum">Summation</option>
+	</select>
+<input type="button" onclick="init_client()" value="Submit">
+<br/>
+</form>
+<h2>Resulting Calculation:</h2>
+<div id="out"></div>
+</body>
+</html>
