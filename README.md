@@ -1,2 +1,2 @@
 # HTML_JavaScript
-Some HTML and Java Script projects from my introduction to computer science class.
+Projects I created using HTML and JavaScript for various Computer Science classes.
